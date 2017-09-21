@@ -5,6 +5,9 @@ dist: trusty
 os:
   - linux
 
+env:
+  - OPENSSL_VERSION=openssl-1.1.0
+
 before_script:
   # g++6
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
@@ -19,15 +22,6 @@ before_script:
   - sudo apt-get install -y libtbb-dev
   - export TBB_ROOT_DIR=/usr/include/tbb/
   
-  # OpenSSL 1.1.0f
-  - wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz
-  - tar xzvf openssl-1.1.0f.tar.gz
-  - cd openssl-1.1.0f
-  - ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
-  - make && make install
-  - cd ../
-  - openssl version -a
-
   # BEGIN Install ACE
 
   ## BEGIN Backup ACE install
