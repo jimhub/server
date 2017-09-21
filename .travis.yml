@@ -6,7 +6,7 @@ os:
   - linux
 
 env:
-  - OPENSSL_VERSION=openssl-1.1.0
+  - OPENSSL_VERSION=1.1.0f
 
 before_script:
   # g++6
@@ -22,6 +22,15 @@ before_script:
   - sudo apt-get install -y libtbb-dev
   - export TBB_ROOT_DIR=/usr/include/tbb/
   
+  # OpenSSL
+  - wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+  - tar xzvf openssl-${OPENSSL_VERSION}.tar.gz
+  - cd openssl-${OPENSSL_VERSION}
+  - ./config shared no-asm no-ssl2 no-ssl3 -fPIC --prefix="$HOME/openssl-${OPENSSL_VERSION}"
+  - make depend && make install
+  - cd ../
+  - openssl version -a
+
   # BEGIN Install ACE
 
   ## BEGIN Backup ACE install
