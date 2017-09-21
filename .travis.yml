@@ -23,11 +23,13 @@ before_script:
   - export TBB_ROOT_DIR=/usr/include/tbb/
   
   # OpenSSL
+  - mkdir -p /usr/local/include
   - wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
-  - tar xzvf openssl-${OPENSSL_VERSION}.tar.gz
+  - echo "Extracting openssl-${OPENSSL_VERSION}..." && tar xzvf openssl-${OPENSSL_VERSION}.tar.gz > /dev/null
   - cd openssl-${OPENSSL_VERSION}
-  - ./config shared no-asm no-ssl2 no-ssl3 -fPIC --prefix="$HOME/openssl-${OPENSSL_VERSION}"
-  - make depend && make install
+  - echo "Configuring openssl-${OPENSSL_VERSION}..." && ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)' > /dev/null
+  - echo "Building openssl-${OPENSSL_VERSION}..." && make > /dev/null
+  - echo "Installing openssl-${OPENSSL_VERSION}..." && make install > /dev/null
   - cd ../
   - openssl version -a
 
