@@ -18,6 +18,15 @@ before_script:
   # TBB
   - sudo apt-get install -y libtbb-dev
   - export TBB_ROOT_DIR=/usr/include/tbb/
+  
+  # OpenSSL 1.1.0f
+  - wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz
+  - tar xzvf openssl-1.1.0f.tar.gz
+  - cd openssl-1.1.0f
+  - ./config -Wl,--enable-new-dtags,-rpath,'$(LIBRPATH)'
+  - make && make install
+  - cd ../
+  - openssl version -a
 
   # BEGIN Install ACE
 
