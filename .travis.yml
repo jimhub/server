@@ -23,7 +23,7 @@ before_script:
   - export TBB_ROOT_DIR=/usr/include/tbb/
   
   # OpenSSL
-  - mkdir -p /usr/local/include
+  - mkdir -p /usr/local/include /usr/local/lib
   - wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
   - echo "Extracting openssl-${OPENSSL_VERSION}..." && tar xzvf openssl-${OPENSSL_VERSION}.tar.gz > /dev/null
   - cd openssl-${OPENSSL_VERSION}
